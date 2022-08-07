@@ -1,5 +1,6 @@
 package me.hol22mo22.springmvc;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +14,9 @@ public class SampleController {
     @GetMapping(
             value = "/hello",
             consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            headers = HttpHeaders.FROM,
+            params = "name")
     @ResponseBody
     public String hello(){
         return "hello";
