@@ -44,4 +44,74 @@ class SampleControllerTest {
                 ;
     }
 
+    @Test
+    public void getEvents() throws Exception {
+        mockMvc.perform(get("/events"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                ;
+    }
+
+    @Test
+    public void getEventsWithId() throws Exception {
+        mockMvc.perform(get("/events/1"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("events 1"));
+        mockMvc.perform(get("/events/2"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("events 2"));
+        mockMvc.perform(get("/events/3"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("events 3"))
+        ;
+    }
+
+    @Test
+    public void postEvents() throws Exception{
+        mockMvc.perform(post("/events")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                ;
+    }
+
+    @Test
+    public void deleteEvents() throws Exception{
+
+        mockMvc.perform(delete("/events/1"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("events 1"));
+        mockMvc.perform(delete("/events/2"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("events 2"));
+        mockMvc.perform(delete("/events/3"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("events 3"));
+
+        ;
+    }
+
+    @Test
+    public void putEvents() throws Exception {
+
+        mockMvc.perform(put("/events/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().string("events 1"));
+        mockMvc.perform(put("/events/2")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().string("events 2"));
+        mockMvc.perform(put("/events/3")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().string("events 3"));
+
+        ;
+    }
 }
