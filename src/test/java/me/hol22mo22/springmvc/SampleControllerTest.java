@@ -32,8 +32,7 @@ class SampleControllerTest {
     }
     @Test
     public void getEventTest() throws Exception {
-        mockMvc.perform(get("/tests/1")
-                )
+        mockMvc.perform(get("/tests/1"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("id").value(1))
@@ -98,14 +97,28 @@ class SampleControllerTest {
     @Test
     public void postEvents() throws Exception{
         mockMvc.perform(post("/events")
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .param("name","jun")
+                        .param("limit", "20"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 ;
     }
 
+    @Test
+    public void postEventsTestWithError() throws Exception{
+        mockMvc.perform(post("/tests")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .param("name","jun")
+                        .param("limit", "-10"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+        ;
+    }
     @Test
     public void deleteEvents() throws Exception{
 

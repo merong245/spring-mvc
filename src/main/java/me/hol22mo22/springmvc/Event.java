@@ -1,5 +1,7 @@
 package me.hol22mo22.springmvc;
 
+import javax.validation.constraints.Min;
+
 public class Event {
     private Integer id;
 
@@ -11,6 +13,7 @@ public class Event {
         return name;
     }
 
+    @Min(0)
     public Integer getLimit() {
         return limit;
     }
