@@ -3,18 +3,38 @@ package me.hol22mo22.springmvc;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 public class SampleController {
 
-    @GetMapping("/test/{id}")
+    @GetMapping("/events/form")
+    public String eventsForm(Model model){
+        Event event = new Event();
+        event.setLimit(20);
+        model.addAttribute("event", event);
+
+        return "events/form";
+    }
+    @GetMapping("/tests/{id}")
     @ResponseBody
     public Event getTest(@PathVariable Integer id){
         Event event = new Event();
 
         event.setId(id);
+
+        return event;
+    }
+
+    @PostMapping("/tests")
+    @ResponseBody
+    public Event postTest(@RequestParam String name, @RequestParam Integer limit){
+        Event event = new Event();
+
+        event.setName(name);
+        event.setLimit(limit);
 
         return event;
     }
