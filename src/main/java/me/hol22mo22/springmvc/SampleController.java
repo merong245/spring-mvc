@@ -21,4 +21,11 @@ public class SampleController {
     public String hello(){
         return "hello";
     }
+
+    @GetHiMapping
+    @ResponseBody
+    public String hi(){
+        return "hi";
+    }
+
 }

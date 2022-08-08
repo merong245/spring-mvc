@@ -36,4 +36,12 @@ class SampleControllerTest {
 
     }
 
+    @Test
+    public void hiTest() throws Exception{
+        mockMvc.perform(get("/hi"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                ;
+    }
+
 }
