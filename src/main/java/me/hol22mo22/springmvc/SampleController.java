@@ -9,6 +9,16 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 public class SampleController {
 
+    @GetMapping("/test/{id}")
+    @ResponseBody
+    public Event getTest(@PathVariable Integer id){
+        Event event = new Event();
+
+        event.setId(id);
+
+        return event;
+    }
+
     @GetMapping(
             value = "/hello",
             consumes = MediaType.APPLICATION_JSON_VALUE,

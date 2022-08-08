@@ -13,8 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -23,6 +22,15 @@ class SampleControllerTest {
     @Autowired
     MockMvc mockMvc;
 
+    @Test
+    public void eventTest() throws Exception {
+        mockMvc.perform(get("/test/1")
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("id").value(1))
+        ;
+    }
     @Test
     public void helloTest() throws Exception {
         mockMvc.perform(get("/hello")

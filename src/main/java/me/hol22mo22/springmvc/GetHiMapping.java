@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.lang.annotation.*;
 
+// 커스텀 어노테이션
 @Documented // 문서화
 @Target({ElementType.METHOD})   // 사용처
 @Retention(RetentionPolicy.RUNTIME) // 애노테이션 유지 단계
