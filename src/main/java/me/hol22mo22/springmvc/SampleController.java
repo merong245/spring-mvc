@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -42,10 +43,12 @@ public class SampleController {
 
     @PostMapping("/events/form/name")
     public String postEventFormName(@Validated @ModelAttribute Event event,
-                                    BindingResult bindingResult){
+                                    BindingResult bindingResult,
+                                    RedirectAttributes redirectAttributes){
         if(bindingResult.hasErrors()){
             return "/events/form-name";
         }
+        redirectAttributes.addAttribute("name",event.getName());
         return "redirect:/events/form/limit";
     }
     @GetMapping("/events/form")
@@ -66,7 +69,7 @@ public class SampleController {
     }
 
     @PostMapping("/tests")
-    public String postTest(@Validated @ModelAttribute Event event,
+    public String postTest(@Validated @ModelAttribute("newEvent") Event event,
                            BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             System.out.println("============");

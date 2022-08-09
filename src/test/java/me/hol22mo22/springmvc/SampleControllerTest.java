@@ -10,6 +10,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.LocalDateTime;
+
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -109,16 +111,6 @@ class SampleControllerTest {
     }
 
     @Test
-    public void postEventsTestWithError() throws Exception{
-        mockMvc.perform(post("/tests")
-                        .param("name","jun")
-                        .param("limit", "-10"))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(model().hasErrors())
-        ;
-    }
-    @Test
     public void deleteEvents() throws Exception{
 
         mockMvc.perform(delete("/events/1"))
@@ -155,4 +147,5 @@ class SampleControllerTest {
 
         ;
     }
+
 }
