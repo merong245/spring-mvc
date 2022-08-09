@@ -26,7 +26,7 @@ class SampleControllerTest {
     public void eventForm() throws Exception{
         mockMvc.perform(get("/events/form"))
                 .andDo(print())
-                .andExpect(view().name("events/form"))
+                .andExpect(view().name("/events/form"))
                 .andExpect(model().attributeExists("event"))
                 ;
     }
@@ -45,10 +45,9 @@ class SampleControllerTest {
 
         event.setName("jun");
         mockMvc.perform(post("/tests")
-                .param("name",event.getName()))
+                    .param("name",event.getName()))
                 .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("name").value(event.getName()))
+                .andExpect(status().is3xxRedirection())
                 ;
     }
     @Test
@@ -110,13 +109,11 @@ class SampleControllerTest {
     @Test
     public void postEventsTestWithError() throws Exception{
         mockMvc.perform(post("/tests")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
                         .param("name","jun")
                         .param("limit", "-10"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(model().hasErrors())
         ;
     }
     @Test

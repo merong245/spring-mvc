@@ -9,6 +9,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -20,7 +22,7 @@ public class SampleController {
         event.setLimit(20);
         model.addAttribute("event", event);
 
-        return "events/form";
+        return "/events/form";
     }
     @GetMapping("/tests/{id}")
     @ResponseBody
@@ -33,15 +35,30 @@ public class SampleController {
     }
 
     @PostMapping("/tests")
-    @ResponseBody
-    public Event postTest(@Validated(Event.ValidateLimit.class) @ModelAttribute Event event, BindingResult bindingResult){
+    public String postTest(@Validated @ModelAttribute Event event,
+                           BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             System.out.println("============");
             bindingResult.getAllErrors().forEach(c->{
                 System.out.println(c.toString());
             });
+            return "/events/form";
         }
-        return event;
+
+        return "redirect:/events/list";
+    }
+
+    @GetMapping("/events/list")
+    public String getEvents(Model model){
+        Event event = new Event();
+        event.setName("spring");
+        event.setLimit(10);
+        List<Event> eventList = new ArrayList<>();
+        eventList.add(event);
+        model.addAttribute("eventList",eventList);
+
+        return "/events/list";
+
     }
 
     @GetMapping(

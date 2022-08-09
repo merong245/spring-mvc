@@ -9,7 +9,8 @@
     <input type="text" title="name" th:field="*{name}"/>
     <input type="text" title="limit" th:field="*{limit}"/>
     <input type="submit" value="Create"/>
-
+    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"> Incorrect name</p>
+    <p th:if="${#fields.hasErrors('limit')}" th:errors="*{limit}"> Incorrect limit</p>
 </form>
 </body>
 </html>
