@@ -21,17 +21,6 @@ import java.util.List;
 @SessionAttributes("event")
 public class SampleController {
 
-    @ExceptionHandler
-    public String eventErrorHandler(EventException exception, Model model){
-        model.addAttribute("message", "event error");
-        return "/error";
-    }
-
-    @InitBinder
-    public void initEventBinder(WebDataBinder webDataBinder){
-        webDataBinder.setDisallowedFields("id");
-        webDataBinder.addValidators(new EventValidator());
-    }
 
     @GetMapping("/events/error")
     public String eventsError(Model model){
