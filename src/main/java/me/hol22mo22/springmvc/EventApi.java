@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/events")
 public class EventApi
 {
+    @ExceptionHandler
+    public ResponseEntity errorHandler(){
+        return ResponseEntity.badRequest().body("can't create event as ...");
+    }
     @PostMapping
     public ResponseEntity<Event> createEvent(@Validated @RequestBody Event event, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
