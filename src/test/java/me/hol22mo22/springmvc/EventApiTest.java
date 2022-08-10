@@ -54,6 +54,7 @@ class EventApiTest {
         String json = objectMapper.writeValueAsString(event);
         mockMvc.perform(post("/api/events/http")
                         .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andDo(print())
                 .andExpect(status().isOk())
